@@ -41,14 +41,14 @@ jobs:
             - name: Create uci-defaults
               run: mkdir -p files/etc/uci-defaults && cp nss-setup/example/* files/etc/uci-defaults
 
-            - name: Run defconfig
-              run: make defconfig
-
             - name: Update feeds
               run: make package/symlinks
 
             - name: Install feeds
               run: scripts/feeds install -a
+
+            - name: Run defconfig
+              run: make defconfig
 
             - name: Build firmware images
               run: make -j$(($(nproc)+1)) download world
