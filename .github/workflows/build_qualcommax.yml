@@ -36,7 +36,10 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Import config
-              run: mv .config_qualcommax .config
+              run: cp nss-setup/config-nss.seed .config
+
+            - name: Create uci-defaults
+              run: mkdir -p files/etc/uci-defaults && cp nss-setup/example/* files/etc/uci-defaults
 
             - name: Update feeds
               run: make package/symlinks
