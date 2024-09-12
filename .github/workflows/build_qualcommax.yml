@@ -44,9 +44,6 @@ jobs:
             - name: Update feeds
               run: make package/symlinks
 
-            - name: Install feeds
-              run: scripts/feeds install -a
-
             - name: Run defconfig
               run: make defconfig
 
