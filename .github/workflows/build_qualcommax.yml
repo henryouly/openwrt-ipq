@@ -35,20 +35,20 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
+            - name: Update feeds
+              run: scripts/feeds update
+
+            - name Install feeds
+              run: scripts/feeds install -a
+
             - name: Import config
               run: cp nss-setup/config-nss.seed .config
 
-            - name: Create uci-defaults
-              run: mkdir -p files/etc/uci-defaults && cp nss-setup/example/* files/etc/uci-defaults
-
-            - name: Update feeds
-              run: make package/symlinks
-
             - name: Run defconfig
-              run: make defconfig
+              run: make defconfig -V=s -j$(($(nproc)+1)) 
 
             - name: Build firmware images
-              run: make -j$(($(nproc)+1)) download world
+              run: make -j$(($(nproc)+1))
 
             - name: Get SHA
               uses: benjlevesque/short-sha@v2.2
