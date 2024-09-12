@@ -45,7 +45,7 @@ jobs:
               run: cp nss-setup/config-nss.seed .config
 
             - name: Run defconfig
-              run: make defconfig -V=s -j$(($(nproc)+1)) 
+              run: make defconfig V=s -j$(($(nproc)+1)) 
 
             - name: Build firmware images
               run: make -j$(($(nproc)+1))
