@@ -38,7 +38,7 @@ jobs:
             - name: Update feeds
               run: scripts/feeds update
 
-            - name Install feeds
+            - name: Install feeds
               run: scripts/feeds install -a
 
             - name: Import config
