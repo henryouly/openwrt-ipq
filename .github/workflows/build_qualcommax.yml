@@ -39,14 +39,14 @@ jobs:
               run: make package/symlinks
 
             - name: Import config
-              run: cp nss-setup/config-nss.seed .config
-
-            - name: Run defconfig
-              run: make defconfig V=s -j$(($(nproc)+1)) 
+              run: mv .config_mx4300_nss .config
 
             - name: Build firmware images
-              run: make -j$(($(nproc)+1))
+              run: make -j$(($(nproc)+1)) world
 
+            - name: Pack packages
+              run:  tar cvfz bin/packages.tar.gz bin/targets/qualcommax/ipq807x/packages/
+              
             - name: Get SHA
               uses: benjlevesque/short-sha@v2.2
 
@@ -54,4 +54,4 @@ jobs:
               uses: ncipollo/release-action@v1
               with:
                 tag: qualcommax-${{ env.SHA }}
-                artifacts: bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x-*
+                artifacts: bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x-*, bin/packages.tar.gz
